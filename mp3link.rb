@@ -22,7 +22,10 @@ def query_mp3(str)
   #query_str = 'http://mp3.sogou.com/music.so?query=%B6%D4%B2%BB%C6%F0%CE%D2%B0%AE%C4%E3+%C1%BA%BE%B2%C8%E3'
   p query_str
   main_links = extract_main_page_links(query_str)
-  main_links.collect { |mlink| get_sublink(mlink) }
+  main_links.each do |mlink| 
+     mp3_link = get_sublink(mlink)
+     return mp3_link if not mp3_link.nil? or mp3.link.empty?
+  end
 end
 
 def get_content(url)
