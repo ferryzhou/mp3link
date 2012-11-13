@@ -7,15 +7,7 @@ hyp=$(curl --data-binary @temp.flac --header "Content-type: audio/x-flac; rate=8
 
 echo $hyp
 
-#uri_escape(){ echo -E "$@" | sed 's/\\/\\\\/g;s/./&\n/g' | while read -r i; do echo $i | grep -q '[a-zA-Z0-9/.:?&=]' && echo -n "$i" || printf %%%x \'"$i" done }
-
-#uri_escape $hyp
-
-hyp_encode=$(echo $hyp | perl -MURI::Escape -ne 'chomp;print uri_escape($_),"\n"')
-
-echo $hyp_encode
-
-mp3link=$(curl "http://mp3link.herokuapp.com/q?name=$hyp_encode")
+mp3link=$(curl -G --data-urlencode "name=$hyp" "http://mp3link.herokuapp.com/q")
 
 echo $mp3link
 
